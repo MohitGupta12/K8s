@@ -1,14 +1,16 @@
 Kubernetes is a Open Source container Orchestration platform
 - it automates deployment, scaling and management of containerized applications
 - It can be traced back to Google's internal container orchestration system borg, and in 2014 they open sourced a version of borg named as Kubernetes
-	![[Pasted image 20241126224437.png]]
+![Pasted image 20241126224437](https://github.com/user-attachments/assets/86b4ac5d-6f05-4707-8901-c7c32fb1252b)
+
 - what is K8s
 	8 stand for 8 letters between k and s and yeah this is bit nerdy 
-	![[Pasted image 20241126224647.png]]
+	![Pasted image 20241126224647](https://github.com/user-attachments/assets/0bdec08f-7f83-4562-9150-212833811be8)
+
 
 # Architecture 
 A K8 cluster is a set of machine called nodes and these nodes are used to run containerized applications
-![[Pasted image 20241127103526.png]]
+![Pasted image 20241127103526](https://github.com/user-attachments/assets/f70dee7e-18f9-4158-9993-dae72e8efdd8)
 
 There are 2 main parts of a K8 cluster 
 - Control Plane
@@ -35,4 +37,4 @@ K8s has mainly 3 types of auto Scaler to meet the increase or decrease in demand
 - Vertica Pod Autoscaler - Increase/decrease resources of pods in a node
 - Cluster Autoscaler - Increase/decrease number of nodes in cluster
 
-![[Pasted image 20241127105204.png]]
+![Pasted image 20241127105204](https://github.com/user-attachments/assets/80009378-895b-42e3-817c-70c7d257415f)
