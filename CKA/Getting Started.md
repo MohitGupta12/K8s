@@ -1,7 +1,8 @@
 # Basics
 
 **Define K8s** : Kubernetes is a portable, extensible and open source platform to manage containerized workload and services, that facilitates both declarative configurations and automation 
-![[Pasted image 20241127110931.png]]
+![](https://github.com/user-attachments/assets/2ca1ffe2-74f8-43d4-b6e8-7b50ca774f58)
+
 
 Primary Features
 - Container Orchestration : Dynamically managing containers across multiply host systems
@@ -11,7 +12,7 @@ Primary Features
 ## Architecture 
 
 A K8 cluster is a set of machine called nodes and these nodes are used to run containerized applications
-![[Pasted image 20241128212829.png]]
+![Pasted image 20241128212829](https://github.com/user-attachments/assets/fb27392c-4d2f-4991-9180-4ee2cdc4b081)
 
 There are 2 main parts of a K8 cluster 
 - Control Plane
