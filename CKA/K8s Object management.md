@@ -45,7 +45,8 @@ But keep in mind container should have necessary software to run those command
 # Kubectl Tips 
 ## Imperative and declarative methods
 
-![[Pasted image 20241203192511.png]]
+![Pasted image 20241203192511](https://github.com/user-attachments/assets/d058e731-f33b-4c22-8212-d59be5323966)
+
 Declarative methods is where you make object using YAML or JSON
 - This is more commonly used then imperative
 - This is used when we want to create object with some complex configurations
@@ -71,7 +72,7 @@ This `--record` flag will tell kubectl to record this command on its object
 And when you use `kubectl describe` on that object it will show the recorded commands
 # Managing Role Based Access Control
 
-![[Pasted image 20241203194559.png]]
+![Pasted image 20241203194559](https://github.com/user-attachments/assets/59c57feb-27c9-4377-bae5-658d0b584310)
 
 **Role Based Access Control** in k8 allows you to control what users are allowed to do and access within your cluster
 for example you can give developer access to read data and logs from pods 
@@ -93,11 +94,11 @@ kubctl create sa my-serviceaccount.yml
 ```
 
 We can create service account with YAML
-![[Pasted image 20241203195730.png]]
+![Pasted image 20241203195730](https://github.com/user-attachments/assets/91803e9e-b9f6-4952-b5ad-74383d02da23)
  
 We can also manage access control for service account using RBAC,
 it can be bind with any of the 2 bindings to connect with pods
-![[Pasted image 20241203200005.png]]
+![Pasted image 20241203200005](https://github.com/user-attachments/assets/f2837f68-72fe-458a-8a5b-eb85bd2dae94)
 we just have to put our service account in subjects
 
 #  Inspecting Pod Resource Usage
@@ -109,4 +110,4 @@ Once we have that add-on we can use
 kubectl top pod --sort-by <JSON_Path> --seclector <selector>
 ```
 with this we can view data about resource usage in our pods and nodes and we can also use `--sort-by` and `--selector` flags
-![[Pasted image 20241203200742.png]]
+![Pasted image 20241203200742](https://github.com/user-attachments/assets/aacf081a-bdd0-4140-ba24-70b6bc995bde)
