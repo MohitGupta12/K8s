@@ -1,16 +1,17 @@
 # Introduction to High Availability in K8s
 
 High Availability in Kubernetes ensures that your applications and services remain accessible and operational even in the face of failures, that means to design cluster itself to be highly available and to do this we need multiple control plane 
-![[Pasted image 20241203150140.png]]
+
+![Pasted image 20241203150140](https://github.com/user-attachments/assets/70da32b9-5fd6-456a-9f51-62c603f9ff6c)
 
 So to give a brief overview this is what high availability setup would look like we would likely need a load balancer to communicate with k8s api and this also include communication with clients like kubelet on worker node
 ## How we handle etcd in a HA setup
 So to handle etcd in a HA setup we mainly use these 2 patterns
 ### Stacked etcd
-![[Pasted image 20241129121843.png]]
+![Pasted image 20241129121843](https://github.com/user-attachments/assets/9c6b27a4-dcc3-4226-b18b-1b2ddee863d6)
 In Stacked etcd, etcd runs on the same node of control plane, so we are using kubeadm to make our clusters and kubeadm uses this pattern. so in a highly available setup each one of those control plane will have its own etcd.
 ### External etcd
-![[Pasted image 20241129121853.png]]
+![Pasted image 20241129121853](https://github.com/user-attachments/assets/b497bc66-7809-41cb-8ee2-ff1b3428fc81)
 In this we run etcd on a completely different node from that which are running our control plane, so in a high availability setup we would have any number of nodes that run our etcd that will communicate with our multiple control plane 
 
 
@@ -48,7 +49,9 @@ kubectl drain <node_name> --ignore-daemonsets
 
 When you use `kubectl drain` command it will implicitly cordons the node as part of the draining process
 - Cordoning a node means to prevents new pods from being scheduled on the node
-- This is what it will show when node in cordon![[Pasted image 20241203165954.png]]
+- This is what it will show when node in cordon
+![Pasted image 20241203165954](https://github.com/user-attachments/assets/7cc80ed9-fb2f-48ab-b52d-1f6bbdc844b4)
+
 So to uncordon them you can use 
 ```
 kubectl uncordon <node_name>
