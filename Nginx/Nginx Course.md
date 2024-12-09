@@ -76,8 +76,7 @@ Reverse Proxy is a server facing proxy, it also act as a intermediary for reques
 	- It can filter requests for malicious activity before they reach servers and it can ensure SSL encryption are enable and detect many security threat
 	![[Pasted image 20241207142233.png]]
 
-# Why do 
-## we need reverse proxy if we already have cloud load balancer, are they a replacement of reverse proxies, why we have to load balance them twice??
+# Why do we need reverse proxy if we already have cloud balancer, are they a replacement of reverse proxies, why we have to load balance them twice??
 
 So i actuality we will need both cloud load balancer and reverse proxy, we will use both of them like this
 ![[Pasted image 20241207142657.png]]
@@ -93,9 +92,9 @@ Reverse proxy has SSL/TLS termination capabilities and it can also inspect to ma
 
 In conclusion, **In many common use cases, an AWS ALB is sufficient. However, for complex architectures, specific performance or security requirements, or to integrate with legacy systems, adding a reverse proxy like Nginx can provide significant benefits.**
 
-# How-to
 
-## make nginx serve static content (in local env)
+
+# How-to make nginx serve static content (in local env)
 
 First we have to install nginx to our machine we can use
 ```
@@ -129,7 +128,7 @@ event {}
 
 ```
 And that's it
-#### Mime types
+## Mime types
 
 Now if you want to add CSS to it so you add this in header tag 
 ```
@@ -169,11 +168,98 @@ http {
 	}
 }
 ```
+## Location
 
-## make nginx a reverse proxy
+```
+http {
+	include mime.types
+	
+	server {
+		listen 8080;
+		root /Users/mohit/my-site;
+		
+		location /fruits {
+			root /Users/mohit/my-site;
+		}
+		
+		location /carbs {
+			alias /Users/mohit/my-site/fruits;
+		}
+		
+		location /vegetables {
+			root /Users/mohit/my-site;
+			try_files /vegetables/veggies.html /index.html =404;
+		}
+		
+		location ~* /count/[0-9] {
+			root /Users/mohit/my-site;
+			try_files /index.html =404;
+		}
+			
+		rewrite ^/number/(\w+) /conut/$1;
+			
+		location /crops {
+			return 307 /fruits
+		} 
+		
+		location /crops {
+			return 307 /fruits
+		} 
+	}
+}
+```
 
-## make nginx a forward proxy
 
-## make nginx a load balancer 
+# How-to make nginx a reverse proxy
 
+One of the most common use case of nginx is reverse proxy, it utilize proxy_pass directive to do this, it moves incoming request to destination at backend
+```
+location / {
+	proxy_pass http://10.1.1.7:9090;
+}
+```
 
+So by default nginx terminated a connection before establishing a new one, so if we want tit to act as a reverse proxy, we should be able to understand who is the request's original sender cause we could have many other proxies to go through before connecting to our backend server and we need the information from original request for our logs or else everything would be from our reverse proxy's IP instead of the different client's IP.
+
+So to solve above mentioned problems and we have some particular directives that will help us keep original info from incoming request and then forward that info to our backend
+
+```
+server {
+	listen 80;
+	proxy_set_header Host $host;
+	proxy_set_header X-Real_IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forward_for;
+	access_log /var/log/nginx/custom-access-log.log custom_log_format;
+	
+	location / {
+		proxy_pass http://10.1.1.7:9090;
+	}
+}
+```
+we can se different variables that are available to us on the [official docs](https://nginx.org/en/docs/varindex.html) and we cant also create custom log file for our server that will have our custom header 
+```
+lof_format custom_log_format '<format>'
+
+server {
+	listen 80;
+	proxy_set_header Host $host;
+	proxy_set_header X-Real_IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forward_for;
+	
+	access_log /var/log/nginx/custom-access-log.log custom_log_format;
+	
+	location / {
+		proxy_pass http://10.1.1.7:9090;
+	}
+}
+```
+
+# How-to make nginx a load balancer 
+
+![[Pasted image 20241209205016.png]]
+
+For nginx to be defined as a load balancer we can provide a backend server list to it, we can use upstream directive to make server list and use proxy pass to forward it.
+When the load balancing method is not specifically configured, it defaults to round-robin method. Other methods are
+- least-connected - next request is assigned to the server with the least number of active connections,
+- ip-hash - a hash-function is used to determine what server should be selected for the next request
+- Weighted load balancing - When the [weight](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server) parameter is specified for a server
