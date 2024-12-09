@@ -77,7 +77,7 @@ Reverse Proxy is a server facing proxy, it also act as a intermediary for reques
 	![[Pasted image 20241207142233.png]]
 
 # Why do 
-## we need reverse proxy if we already have cloud balancer, are they a replacement of reverse proxies, why we have to load balance them twice??
+## we need reverse proxy if we already have cloud load balancer, are they a replacement of reverse proxies, why we have to load balance them twice??
 
 So i actuality we will need both cloud load balancer and reverse proxy, we will use both of them like this
 ![[Pasted image 20241207142657.png]]
