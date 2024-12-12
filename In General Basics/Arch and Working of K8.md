@@ -10,7 +10,7 @@ Kubernetes is a Open Source container Orchestration platform
 A K8 cluster is a set of machine called nodes and these nodes are used to run containerized applications
 ![[Pasted image 20241127103526.png]]
 
-
+//testing
 
 
 # Storage
