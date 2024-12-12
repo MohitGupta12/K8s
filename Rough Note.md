@@ -155,3 +155,131 @@ kubectl create nmaespaces <namespace_name>
 ## Inspecting pod resource usage
 ![[Pasted image 20241202222136.png]]
 ![[Pasted image 20241202222208.png]]
+
+
+
+curl -sfL https://get.k3s.io | K3S_TOKEN=12345 sh -s - server --flannel-backend none --node-taint CriticalAddonsOnly=true:NoExecute --tls-san 35.171.22.24 
+
+
+curl -sfL https://get.k3s.io | K3S_URL=https://35.171.22.24:6443 K3S_TOKEN=K1058e036383736221c0aa704a49045ee20f6c804065f23cad302f1df27f56f44ab::server:0fe6fb37148f5439db7421523db09a3f
+
+curl -sfL https://get.k3s.io | K3S_URL=http://35.171.22.24:6443 K3S_TOKEN=K1058e036383736221c0aa704a49045ee20f6c804065f23cad302f1df27f56f44ab::server:0fe6fb37148f5439db7421523db09a3f sh -
+
+
+curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server --node-taint CriticalAddonsOnly=true:NoExecute --cluster-init --tls-san 35.171.22.24
+
+
+curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server --server https://35.171.22.24:6443 --tls-san 35.171.22.24
+
+
+
+
+//Worked
+curl -sfL https://get.k3s.io | K3S_URL=https://k3s_endpoint:6443 K3S_TOKEN=569b6470cd0a839fbff439aa65c696c7 --node-name k3s-worker-03 sh -
+nano /etc/hosts
+
+![[Pasted image 20241205182238.png]]
+
+
+curl -sfL https://get.k3s.io | sh -s - server \
+  --token=569b6470cd0a839fbff439aa65c696c7 \
+  --tls-san=k3s_endpoint \
+  --node-name k3s-master-02
+
+
+//Worked
+  curl -sfL https://get.k3s.io | K3S_TOKEN=569b6470cd0a839fbff439aa65c696c7 sh -s - server \
+    --server https://172.31.85.51:6443 \
+  --node-name k3s-master-03
+
+
+------------
+
+
+
+![[Pasted image 20241210195113.png]]
+
+
+![[Pasted image 20241210192720.png]]
+if they have to be tightly coupled then multi container is very good for those scenarios
+
+how do different container interact with each other in a multi container setup 
+![[Pasted image 20241210192842.png]]
+when can you use this and example.
+
+
+## Init containers like User data in EC2
+
+![[Pasted image 20241210193930.png]]
+![[Pasted image 20241210193943.png]]
+![[Pasted image 20241210195229.png]]
+![[Pasted image 20241210194339.png]]
+![[Pasted image 20241210194448.png]]
+
+
+
+## Pod Allocation
+
+![[Pasted image 20241210200718.png]]
+ ![[Pasted image 20241210200808.png]]
+Scheduler can us various techniques to allot a pod in a node one of them is nodeSelector 
+![[Pasted image 20241210200850.png]]
+
+Or we can use nodeName to completely bypass scheduling and assign a pod to a node  
+
+
+### Daemon Sets
+![[Pasted image 20241210201512.png]]
+![[Pasted image 20241210201534.png]]
+
+
+### Static pods
+![[Pasted image 20241210201902.png]]
+
+mirror pod is a ghost representation of the static pod you can see it but you cant make changes to it
+![[Pasted image 20241210201931.png]]
+
+
+## Deployment 
+![[Pasted image 20241210204140.png]]
+![[Pasted image 20241210204217.png]]
+![[Pasted image 20241210205144.png]]
+
+to delete a pod made by a deployment you have to either change its desired state or delete the deployment cause deleting the pod will actually delete it but deployment will spin up a ew pod in that deleted pod's place
+
+### Scaling Application with Deployment
+
+![[Pasted image 20241210205756.png]]
+![[Pasted image 20241210205902.png]]
+![[Pasted image 20241210205853.png]]
+![[Pasted image 20241210205946.png]]
+
+## Rolling Update
+
+![[Pasted image 20241210210413.png]]
+![[Pasted image 20241210210428.png]]
+
+# K8s Network
+
+![[Pasted image 20241210213259.png]]
+![[Pasted image 20241210213306.png]]
+
+## CNI plugins
+![[Pasted image 20241210213453.png]]
+there are many cni plugin available 
+![[Pasted image 20241210213526.png]]
+![[Pasted image 20241210213545.png]]
+
+## DNS in K8s
+![[Pasted image 20241210213629.png]]
+![[Pasted image 20241210213642.png]]
+this is not very useful in when we are using pods cause dns name uses ip address and if we have that why can't we just use that, so these name will be useful when we will use services
+
+## Network policy
+
+![[Pasted image 20241210214156.png]]
+![[Pasted image 20241210214206.png]]
+![[Pasted image 20241210214232.png]]
+![[Pasted image 20241210214302.png]]
+![[Pasted image 20241210214328.png]]
+![[Pasted image 20241210214351.png]]
