@@ -4,18 +4,20 @@
 Unfortunately, only the `k8s-worker2` node exists in the network segment shared by these services. This means only pods on the `k8s-worker2` node will be able to access these sensitive external services, and pods on the `k8s-worker1` or `k8s-control` nodes cannot access them.
 
 Your task is to reconfigure the `auth-gateway` pod and the `auth-data` deployment's replica pods so they will always run on the `k8s-worker2` node.
-![[Pasted image 20241213121754.png]]
+![Pasted image 20241213121754](https://github.com/user-attachments/assets/15794b08-2812-4313-ae25-7c4ec1a5a7cc)
+
 
 So in this case we have to schedule pods only on `k8s-worker2` so that they can access external services, for this we can either use labels and nodeSelector to allot these pod to that node or we could use NodeName directly either works
 
 Here we will use labels,
-![[Pasted image 20241213122638.png]]
+![Pasted image 20241213122638](https://github.com/user-attachments/assets/1dfe631c-1dc5-4ccd-bc87-6c7a12eca790)
+
 
 First We have to add a Label to `k8s-worker2`, for this we can use :
 ```
 kubectl label nodes k8s-worker2 external-auth-services=true
 ```
-![[Pasted image 20241213123120.png]]
+![Pasted image 20241213123120](https://github.com/user-attachments/assets/3f173512-b0ce-4ab5-81b9-ef0e0579578a)
 
 ## For `auth-gateway pod`
 
@@ -41,7 +43,7 @@ kubectl delete pods auth-gateway -n beebox-auth
 kubectl apply -f auth-gateway.yml -n beebox-auth
 ```
 
-![[Screenshot 2024-12-13 124142.png]]
+![Screenshot 2024-12-13 124142](https://github.com/user-attachments/assets/cb602dff-f2c1-42df-99d9-c41f939e06b4)
 
 ## For `auth-data Deployment`
 
@@ -79,7 +81,8 @@ kubectl apply -f auth-data.yml -n beebox-auth
 ```
 
 Results : 
-![[Pasted image 20241213130204.png]]
+![Pasted image 20241213130204](https://github.com/user-attachments/assets/99c8b057-fd30-4fa4-9154-8892a50c2e45)
+
 
 # Scenario 2
 
