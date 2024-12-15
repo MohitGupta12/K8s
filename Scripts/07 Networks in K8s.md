@@ -19,7 +19,8 @@ Trying to find issues
 kubectl get pods
 kubectl get nodes
 ```
-![[Pasted image 20241213213947.png]]
+![Pasted image 20241213213947](https://github.com/user-attachments/assets/178d89a5-7183-4339-8c8f-a4d9a10b1c30)
+
 It looks like the nodes are `NotReady`.
 
 Lets Describe a node to get more info
@@ -46,7 +47,8 @@ kubectl get nodes
 kubectl get pods
 ```
 They should both be `Ready` after about a minute.
-![[Pasted image 20241213214021.png]]
+![Pasted image 20241213214021](https://github.com/user-attachments/assets/32a99e8c-cef4-4e35-98cf-28da7da0aedd)
+
 
 ### To verify that you can Communicate between Pods Using the Cluster Network
 
@@ -62,4 +64,5 @@ kubectl exec testclient -- curl <cyberdyne-frontend_POD_IP>
 ```
 
 The result should be HTML of an Nginx page, meaning the Pods are able to communicate.
-![[Pasted image 20241213213907.png]]
+![Pasted image 20241213213907](https://github.com/user-attachments/assets/02abd4d7-4d71-44be-97b2-a2e218dcdb2d)
+
