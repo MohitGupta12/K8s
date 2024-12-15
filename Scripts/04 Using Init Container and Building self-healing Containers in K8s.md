@@ -118,4 +118,4 @@ spec:
 
 Results after service is running:
 
-![[Pasted image 20241213001511.png]]
+![Pasted image 20241213001511](https://github.com/user-attachments/assets/65555c93-401a-4e98-a999-71f60f960698)
