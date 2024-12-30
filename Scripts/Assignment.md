@@ -16,13 +16,17 @@ Write a [FastAPI](https://fastapi.tiangolo.com/) server to create a highly ava
 ```
 curl -sfL https://get.k3s.io | sh -s - server --node-name k3s-master-01
 ```
-(This command installs K3s with Traefik disabled, as we'll be using the NGINX Ingress Controller.)
+
 
 2. **Join Nodes to the Cluster:** 
+- For Agent node
 ```
-sudo curl -sfL https://get.k3s.io | --server https://172.31.23.9:6443 --token K107f719c90198ea38021d2be4e03b9268eaf839c0530b84b5446b0a555399a2957::server:5452d9379bb78dcdd97431b9a067613e sh -
+curl -sfL https://get.k3s.io | K3S_TOKEN K107f719c90198ea38021d2be4e03b9268eaf839c0530b84b5446b0a555399a2957::server:5452d9379bb78dcdd97431b9a067613e K3S_URL=https://172.31.23.9:6443 sh - 
+```
 
-sudo curl -sfL https://get.k3s.io | --server https://172.31.23.9:6443 --token K107f719c90198ea38021d2be4e03b9268eaf839c0530b84b5446b0a555399a2957::server:5452d9379bb78dcdd97431b9a067613e sh -s server
+- For Server node
+```
+curl -sfL https://get.k3s.io | K3S_TOKEN K107f719c90198ea38021d2be4e03b9268eaf839c0530b84b5446b0a555399a2957::server:5452d9379bb78dcdd97431b9a067613e K3S_URL=https://172.31.23.9:6443 sh -s - server
 ```
 
 
@@ -46,7 +50,7 @@ helm install cnpg cloudnativepg/cloudnativepg
 helm upgrade --install database --namespace database --create-namespace cnpg/cluster
 ```
 
-**Making a Service to expose our database**
+**Service to expose our database**
 ```cnpg-svc.yml
 apiVersion: v1
 kind: Service
@@ -72,7 +76,7 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm search repo ingress-nginx --versions
 ```
 
-**Deploying Nginx Ingress Controller**
+**Deploy Nginx Ingress Controller**
 ```
 CHART_VERSION="4.4.0"
 APP_VERSION="1.5.1"
@@ -92,7 +96,6 @@ kubectl apply -f ./ingress/controller/nginx/manifests/nginx-ingress.${APP_VERSIO
 
 
 **Create Ingress Resource:**
-
 ``` ingress.yml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -113,5 +116,3 @@ spec:
 ```
 kubectl apply -f ingress.yaml 
 ```
-
-**Configure DNS:**
