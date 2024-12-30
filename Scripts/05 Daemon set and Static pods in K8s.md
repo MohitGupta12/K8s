@@ -52,7 +52,8 @@ To verify a DaemonSet pod is running on each worker node:
 kubectl get pods -o wide
 ```
 
-![[Pasted image 20241213174219.png]]
+![Pasted image 20241213174219](https://github.com/user-attachments/assets/81bf7ed6-c150-43b6-a0df-126ff51d9c34)
+
 
 # Scenario 2
 
@@ -110,4 +111,4 @@ kubectl get pods
 
 We'll see the Pod was immediately re-created, since it is only a mirror Pod created by the worker kubelet to represent the static Pod.
 
-![[Pasted image 20241213175727.png]]
+![Pasted image 20241213175727](https://github.com/user-attachments/assets/4a3b8e1b-696d-42a9-95f6-86b6c8e633b4)

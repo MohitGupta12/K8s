@@ -37,7 +37,8 @@ Then we can test the Service to make sure it works by using 
 ```
 kubectl exec busybox -- curl user-db-svc
 ```
-![[Pasted image 20241215233914.png]]
+![Pasted image 20241215233914](https://github.com/user-attachments/assets/51a9d1cb-c777-4056-8879-d9e5aafe69a4)
+
 
 ### Exposing the Pods from the Web-frontend Deployment as an External Service
 
@@ -76,4 +77,4 @@ kubectl create -f web-frontend-svc.yml
 
 To test the Service from outside the cluster we can use browser by navigating to `http://<PUBLIC_IP_ADDRESS>:30080`.
 
-![[Pasted image 20241215234428.png]]
+![Pasted image 20241215234428](https://github.com/user-attachments/assets/68913bdc-ba37-499c-b52d-3c6efcf53213)

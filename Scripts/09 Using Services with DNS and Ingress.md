@@ -31,7 +31,8 @@ kubectl exec -n web busybox -- nslookup web-frontend.web.svc.cluster.local >> ~/
 cat ~/dns_same_namespace_results.txt
 ```
 
-![[Pasted image 20241216000319.png]]
+![Pasted image 20241216000319](https://github.com/user-attachments/assets/2af28240-7326-4433-9be4-cffe246ad734)
+
 we can see that there are both server and name address present that means we can use any type of service name to use that service if we are in same namespace
 
 ### Perform an Nslookup for a Service in the Different Namespace
@@ -61,7 +62,8 @@ Check the output in the text file by using:
 cat ~/dns_different_namespace_results.txt
 ```
 
-![[Pasted image 20241216000516.png]]
+![Pasted image 20241216000516](https://github.com/user-attachments/assets/8c66c282-01ef-4924-b281-5678ad65ed60)
+
 we can see that there are only server and name address present for second nslookup that means we can use fully qualified domain type of service name to use that service if we are in different  namespace
 
 # Scenario 2
@@ -141,5 +143,6 @@ Now to check the status of the Ingress:
 kubectl describe ingress web-auth-ingress
 ```
 
-![[Pasted image 20241216002142.png]]
+![Pasted image 20241216002142](https://github.com/user-attachments/assets/7f6951f8-c650-4b89-a277-f54f004618e3)
+
 Note the service endpoints in the Backends section of the output. That means we have successfully created an Ingress that maps to the backend Service.
